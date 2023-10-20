@@ -5,6 +5,9 @@ from queue import Queue
 class Task:
     """
     Task class.
+
+    Represents task to be performed by a forklift.
+
     """
 
     def __init__(self,
@@ -28,6 +31,7 @@ class TaskQueue:
     """
     Task queue class.
     """
+
     def __init__(self, warehouse_id: int):
         self.id = warehouse_id
         self.queue = Queue()  # FIFO queue
@@ -38,12 +42,10 @@ class TaskQueue:
         self.queue.put(Task(task_id=self.max_task_id + 1, path_id=path_id))
         self.max_task_id += 1
 
-    def get_task(self):
+    def get_task(self) -> Task:
         # method to return next task from queue
         if not self.queue.empty():
             return self.queue.get()
 
     def create_new_task(self):
         self.put(path_id=randint(1, 6))
-
-

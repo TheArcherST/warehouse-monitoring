@@ -8,6 +8,14 @@ class Warehouse:
     Warehouse class.
     It represents works of onw warehouse in given city
 
+    Each warehouse object contains its identifier, city, tasks queue,
+    and the list of forklifts (forklift part).
+
+    Forklift park includes 6-15 forklifts.  This count is fixed.
+    Tasks queue is dynamic.  Initial count of tasks is based on tasks
+    queue length: the random count in range from forklifts * 2 to
+    forklifts * 4.
+
     """
 
     def __init__(
@@ -17,8 +25,10 @@ class Warehouse:
     ):
         self.id = warehouse_id
         self.city = city
-        self.task_queue = TaskQueue(self.id)  # queue for all task of this warehouse instance
-        self.forklift_park = []  # list of all forklifts belongs to this warehouse instance
+        # queue for all task of this warehouse instance
+        self.task_queue = TaskQueue(self.id)
+        # list of all forklifts belongs to this warehouse instance
+        self.forklift_park = []
         self.forklift_count = 0  # just counter to know next forklift id
 
         self._fill_forklift_park()
@@ -30,8 +40,10 @@ class Warehouse:
             self.add_new_forklift()
 
     def _fill_tasks_queue(self):
-        # init basic queue with random number of tasks, depends on forklifts number
-        for _ in range(randint(self.forklift_count * 2, self.forklift_count * 4)):
+        # init basic queue with random number of tasks, depends on
+        # forklifts number
+        for _ in range(randint(self.forklift_count * 2,
+                               self.forklift_count * 4)):
             self.task_queue.create_new_task()
 
     def add_new_forklift(self):
@@ -54,5 +66,6 @@ class Warehouse:
             for forklift in self.forklift_park:
                 forklift.work()
             # and sometimes add new tasks to queue
+            # upd: sometimes?))))
             for _ in range(randint(0, self.forklift_count)):
                 self.task_queue.create_new_task()

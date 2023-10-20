@@ -22,11 +22,15 @@ if __name__ == '__main__':
     processes = []
     # list to store all warehouses
     warehouses = []
+
     # parallel all tasks by approx 80% of CPUs
-    for i in range(int(multiprocessing.cpu_count() * 0.8)):
+    warehouses_count = multiprocessing.cpu_count() * 0.8
+
+    # parallel all tasks by approx 80% of CPUs
+    for i in range(int(warehouses_count)):
         # create new warehouse with random city from cities list
         warehouses.append(Warehouse(warehouse_id=i, city=cities[randint(0, len(cities) - 1)]))
     # here we use ProcessPool from pathos lib.
     # The reason why we don't use standard multiprocessing lib is because it does not support classes pickling
-    pool = ProcessPool(nodes=int(multiprocessing.cpu_count() * 0.8))  # we use 80% of cores
+    pool = ProcessPool(nodes=warehouses_count)  # we use 80% of cores
     pool.map(run_warehouse, warehouses)
