@@ -1,8 +1,9 @@
-from Warehouse import Warehouse
 import multiprocessing
 from pathos.multiprocessing import ProcessPool
 from config import cities
 from random import randint
+
+from warehouse_monitoring.domain.emulator.core.Warehouse import Warehouse
 
 
 def run_warehouse(w: Warehouse):

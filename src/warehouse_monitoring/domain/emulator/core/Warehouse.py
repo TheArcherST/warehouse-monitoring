@@ -1,6 +1,6 @@
 from Task import TaskQueue
 from random import randint
-from Forklift import Forklift
+from warehouse_monitoring.domain.emulator.core.Forklift import Forklift
 
 
 class Warehouse:

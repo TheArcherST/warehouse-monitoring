@@ -1,4 +1,4 @@
-from src.warehouse_monitoring.domain.application.dtos import TaskDTO
+from src.warehouse_monitoring.domain.monitoring.dtos import TaskDTO
 
 from .base import BaseEvent
 

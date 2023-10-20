@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from warehouse_monitoring.domain.application import dtos
+from warehouse_monitoring.domain.monitoring import dtos
 
 
 router = APIRouter(tags=["Data API"])
