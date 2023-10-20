@@ -17,7 +17,7 @@ services:
       - database
     volumes:
       - type: bind
-        source: ${RKSI_API_CONFIG_PATH}
+        source: ${CONFIG_PATH}
         target: /config
         read_only: true
   database:
