@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from random import randint, uniform
 from config import path_lib
-from Task import TaskQueue
+from task import TaskQueue
 
 
 class Path:
@@ -78,7 +78,8 @@ class Forklift:
             # print(f"TaskQueue of warehouse #{self.warehouse_id} is empty "
             #       f"Forklift #{self.id} stay chill")
         if self.task.id == 42:
-            print(f"Forklift #{self.id} say: 'Hmm.. seems like I found the answer to life the universe and everything'")
+            print(f"Forklift #{self.id} say: 'Hmm.. seems like I found "
+                  f"the answer to life the universe and everything'")
 
     def work(self):
         # first of all check status

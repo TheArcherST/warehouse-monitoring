@@ -3,7 +3,7 @@ from pathos.multiprocessing import ProcessPool
 from config import cities
 from random import randint
 
-from warehouse_monitoring.domain.emulator.core.Warehouse import Warehouse
+from warehouse_monitoring.domain.emulator.core.warehouse import Warehouse
 
 
 def run_warehouse(w: Warehouse):

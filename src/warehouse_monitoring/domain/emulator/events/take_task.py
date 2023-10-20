@@ -13,4 +13,5 @@ class TakeTaskEvent(BaseEvent):
             task_id: int,
             forklift_id: int,
     ):
-        pass
+        self.task_id = task_id
+        self.forklift_id = forklift_id
