@@ -1,3 +1,5 @@
+from typing import AsyncGenerator
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
@@ -36,7 +38,10 @@ except ImportError:
     sync_engine = None
 
 
-async def inject_database_session():
+DatabaseSession = AsyncSession
+
+
+async def inject_database_session() -> AsyncGenerator[DatabaseSession, None]:
     async with DatabaseSession(engine, expire_on_commit=False) as session:
         try:
             yield session
@@ -47,15 +52,11 @@ async def inject_database_session():
             await session.commit()
 
 
-DatabaseSession = AsyncSession
-
-
 class Base(DeclarativeBase):
     pass
 
 
 async def init_db():
-    # async with engine.begin() as session:
-    #     # await session.run_sync(Base.metadata.drop_all)
-    #     await session.run_sync(Base.metadata.create_all)
-    pass
+    async with engine.begin() as session:
+        # await session.run_sync(Base.metadata.drop_all)
+        await session.run_sync(Base.metadata.create_all)
