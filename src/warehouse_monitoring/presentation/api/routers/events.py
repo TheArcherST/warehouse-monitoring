@@ -43,6 +43,7 @@ async def listen_for_warehouse_events(
         await websocket.send_json({
             "event": "forklift.movement",
             "data": {
+                "forklift_id": 1,
                 "current_location": {"x": current[0], "y": current[1]},
                 "inferred_location": {"x": next_[0], "y": next_[1]},
                 "speed": 2.5,

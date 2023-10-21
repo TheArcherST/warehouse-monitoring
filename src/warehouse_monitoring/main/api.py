@@ -14,6 +14,10 @@ from warehouse_monitoring.presentation.api.routers import (
 from warehouse_monitoring.infrastructure.config import environment
 
 
+from warehouse_monitoring.infrastructure.warehouse.emulator import Emulator
+from warehouse_monitoring.infrastructure.warehouse.gateway.observer import WarehouseObserver
+from warehouse_monitoring.domain import event_handlers
+
 app = FastAPI(title="Warehouse monitoring API")
 
 
@@ -42,7 +46,18 @@ app.include_router(root_router)
 
 @app.on_event("startup")
 async def on_application_startup():
+    start_emulator()
     await init_db()
+
+
+def start_emulator():
+    observer = WarehouseObserver()
+    event_handlers.register(observer)
+    emulator = Emulator(
+        warehouses_count=10,
+    )
+    emulator.set_observer(observer)
+    emulator.start()
 
 
 def main():
