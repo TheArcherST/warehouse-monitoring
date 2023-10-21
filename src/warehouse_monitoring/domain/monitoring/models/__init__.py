@@ -1,4 +1,5 @@
-from .checkpoint_status import CheckpointStatus, CheckpointStatusValueEnum
+from .visit_record import VisitRecord
+from .warehouse import Warehouse
 from .checkpoint import Checkpoint
 from .task import Task
 from .path import Path
