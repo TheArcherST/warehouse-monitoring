@@ -1,3 +1,5 @@
+import asyncio
+
 from task import TaskQueue
 from random import randint
 from warehouse_monitoring.domain.emulator.core.forklift import Forklift
@@ -59,13 +61,19 @@ class Warehouse:
         )
         self.forklift_count += 1
 
-    def work(self):
+    async def execution_loop(self):
         # infinite loop with warehouse works
         while True:
             # iterate over forklifts and make them work =)
             for forklift in self.forklift_park:
                 forklift.work()
-            # and sometimes add new tasks to queue
-            # upd: sometimes?))))
             for _ in range(randint(0, self.forklift_count)):
                 self.task_queue.create_new_task()
+
+            # the pumpkin.  please adjust
+            # need some algorithm to some forklifts were inactive,
+            # just to demonstrate how application handles this case.
+            # maybe, event implement different behaviour
+            # for warehouses.
+
+            await asyncio.sleep(3)

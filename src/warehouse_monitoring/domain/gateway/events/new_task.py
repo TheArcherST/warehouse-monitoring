@@ -1,4 +1,4 @@
-from src.warehouse_monitoring.domain.monitoring.dtos import TaskDTO
+from warehouse_monitoring.domain.gateway.dtos import TaskDTO
 
 from .base import BaseEvent
 
@@ -11,8 +11,4 @@ class NewTaskEvent(BaseEvent):
 
     """
 
-    def __init__(
-            self,
-            new_task: TaskDTO
-    ):
-        self.task = new_task
+    new_task: TaskDTO

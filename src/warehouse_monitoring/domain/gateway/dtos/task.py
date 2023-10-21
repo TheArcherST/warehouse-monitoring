@@ -1,6 +1,6 @@
 from typing import Optional
 
-from .base import BaseDTO
+from warehouse_monitoring.infrastructure.bases.dto import BaseDTO
 
 
 class TaskDTO(BaseDTO):

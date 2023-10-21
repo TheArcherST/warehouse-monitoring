@@ -1,9 +1,13 @@
 import asyncio
 
 from fastapi import APIRouter, WebSocket
+import itertools
 
 
 router = APIRouter(tags=["Events API"])
+
+demo_coords = [(25, 0), (25, 5), (25, 10), (15, 10),]
+demo_iterator = itertools.cycle(demo_coords)
 
 
 @router.websocket(
@@ -11,6 +15,7 @@ router = APIRouter(tags=["Events API"])
 )
 async def listen_for_warehouse_events(
         websocket: WebSocket,
+        warehouse_id: int,
 ):
     """Listen for warehouse events
 
@@ -31,13 +36,18 @@ async def listen_for_warehouse_events(
     """
 
     # the pumpkin.  please adjust
+    await websocket.accept()
+    current = next(demo_iterator)
+    next_ = next(demo_iterator)
     while True:
-        await websocket.send({
+        await websocket.send_json({
             "event": "forklift.movement",
             "data": {
-                "current_location": {"x": 10, "y": 20},
-                "inferred_location": {"x": 10, "y": 20},
-                "speed": 10,
+                "current_location": {"x": current[0], "y": current[1]},
+                "inferred_location": {"x": next_[0], "y": next_[1]},
+                "speed": 2.5,
             }
         })
-        await asyncio.sleep(1)
+        current = next_
+        next_ = next(demo_iterator)
+        await asyncio.sleep(2)
