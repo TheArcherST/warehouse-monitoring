@@ -9,6 +9,6 @@ class Checkpoint(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     warehouse_id: Mapped[int] = mapped_column(ForeignKey('warehouse.id'))
-    local_id: Mapped[int] = mapped_column(unique=True, index=True)
+    local_id: Mapped[int] = mapped_column()
     location_x: Mapped[int] = mapped_column()
     location_y: Mapped[int] = mapped_column()

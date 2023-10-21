@@ -28,3 +28,10 @@ class CheckpointRepo(BaseRepository):
         stmt = (select(models.Checkpoint)
                 .where(models.Checkpoint.id == checkpoint_id))
         return await self.session.scalar(stmt)
+
+    async def get_checkpoint_by_local_id(
+            self,
+            warehouse_id: int,
+            local_id: int,
+    ) -> models.Checkpoint:
+        pass

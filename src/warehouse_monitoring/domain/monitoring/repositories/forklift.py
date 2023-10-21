@@ -20,7 +20,7 @@ class ForkliftRepo(BaseRepository):
         return obj
 
     async def get_forklift_by_id(
-            self, internal_id: int,
+            self, id_: int,
     ) -> models.Forklift:
         pass
 
