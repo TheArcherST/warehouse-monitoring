@@ -24,9 +24,9 @@ class ForkliftRepo(BaseRepository):
     ) -> models.Forklift:
         pass
 
-    async def get_forklift_by_internal_id(
+    async def get_forklift_by_local_id(
             self,
             warehouse_id: int,
-            internal_id: int,
+            local_id: int,
     ) -> models.Forklift:
         pass
