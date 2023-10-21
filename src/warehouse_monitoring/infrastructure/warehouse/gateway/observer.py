@@ -21,9 +21,11 @@ class Handler(HandlerType):
 
     def register(self, handler: HandlerType):
         self.handlers.append(handler)
+        return self
 
     def unregister(self, handler: HandlerType):
         self.handlers.remove(handler)
+        return self
 
     # C# semantics
     __call__ = propagate

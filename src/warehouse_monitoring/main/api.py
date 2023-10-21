@@ -54,9 +54,9 @@ def start_emulator():
     observer = WarehouseObserver()
     event_handlers.register(observer)
     emulator = Emulator(
+        observer=observer,
         warehouses_count=10,
     )
-    emulator.set_observer(observer)
     emulator.start()
 
 

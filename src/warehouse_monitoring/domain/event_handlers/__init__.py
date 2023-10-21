@@ -10,4 +10,4 @@ from . import (
 def register(observer: WarehouseObserver):
     start_task.register(observer)
     new_task.register(observer)
-    reach_point.register(observer)
+    visit_point.register(observer)

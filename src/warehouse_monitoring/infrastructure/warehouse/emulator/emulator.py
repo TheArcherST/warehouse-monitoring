@@ -11,10 +11,10 @@ from warehouse_monitoring.infrastructure.warehouse.emulator.config import cities
 class Emulator(gateway.protocol.WarehouseGatewayProto):
     def __init__(
             self,
+            observer: gateway.observer.WarehouseObserver,
             warehouses_count: int,
     ):
-        self._observer: gateway.observer.WarehouseObserver = \
-            gateway.observer.WarehouseObserver()
+        self._observer = observer
         self._warehouses: list[Warehouse] = []
         self._warehouses_count = warehouses_count
 

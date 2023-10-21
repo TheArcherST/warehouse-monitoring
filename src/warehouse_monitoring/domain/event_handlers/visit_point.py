@@ -8,7 +8,7 @@ async def visit_point_handler(
         event: events.VisitPointEvent,
 ):
     ioc = ServiceInteractorFactory()
-
+    print(event)
     async with ioc.movement_service() as service:
         service: services.MovementService
         await service.notify_checkpoint_visit(
