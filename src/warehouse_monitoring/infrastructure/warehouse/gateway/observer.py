@@ -41,7 +41,7 @@ class WarehouseObserver:
 
     def __init__(self):
         self.new_task = Handler()
-        self.reach_point = Handler()
+        self.visit_point = Handler()
         self.start_task = Handler()
         self.finish_task = Handler()
         self.reach_target = Handler()

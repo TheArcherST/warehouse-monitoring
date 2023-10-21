@@ -3,7 +3,7 @@ from warehouse_monitoring.infrastructure.warehouse.gateway.observer import Wareh
 from . import (
     start_task,
     new_task,
-    reach_point,
+    visit_point,
 )
 
 

@@ -6,7 +6,7 @@ from warehouse_monitoring.domain import models
 
 
 class VisitRecordRepo(BaseRepository):
-    async def create_visit_record(
+    async def create_(
             self,
             checkpoint: models.Checkpoint,
             forklift: models.Forklift,

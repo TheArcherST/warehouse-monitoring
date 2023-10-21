@@ -4,8 +4,8 @@ from warehouse_monitoring.domain import services
 from warehouse_monitoring.presentation.interactor_factory.service import ServiceInteractorFactory
 
 
-async def reach_point_handler(
-        event: events.ReachPoint,
+async def visit_point_handler(
+        event: events.VisitPointEvent,
 ):
     ioc = ServiceInteractorFactory()
 
@@ -19,4 +19,4 @@ async def reach_point_handler(
 
 
 def register(observer: WarehouseObserver):
-    observer.reach_point += reach_point_handler
+    observer.visit_point += visit_point_handler

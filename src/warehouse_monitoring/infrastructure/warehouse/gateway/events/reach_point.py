@@ -1,7 +1,7 @@
 from .base import BaseEvent
 
 
-class ReachPoint(BaseEvent):
+class VisitPointEvent(BaseEvent):
     warehouse_id: int
     checkpoint_id: int
     forklift_id: int

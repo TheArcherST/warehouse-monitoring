@@ -73,8 +73,8 @@ class Forklift:
             self.task.start()  # change task status, maybe needed later. Or not =)
             self.current_path = Path(self.task.path_id)  # get Path object
             self.current_point = self.current_path.get_next_checkpoint()  # and first point
-            self.observer.reach_point.propagate_lazy(
-                gateway.events.ReachPoint(
+            self.observer.visit_point.propagate_lazy(
+                gateway.events.VisitPointEvent(
                     checkpoint_id=self.current_point['check_point_id'],
                     forklift_id=self.id,
                     warehouse_id=self.warehouse_id,
@@ -108,8 +108,8 @@ class Forklift:
                 if datetime.now() > self.next_point_time:
                     # if forklift have next point - then let it go
                     if self.next_point:
-                        self.observer.reach_point.propagate_lazy(
-                            gateway.events.ReachPoint(
+                        self.observer.visit_point.propagate_lazy(
+                            gateway.events.VisitPointEvent(
                                 at=datetime.now(),
                                 warehouse_id=self.warehouse_id,
                                 checkpoint_id=self.next_point['check_point_id'],
