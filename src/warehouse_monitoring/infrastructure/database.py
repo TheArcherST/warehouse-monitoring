@@ -55,6 +55,7 @@ class Base(DeclarativeBase):
 
 
 async def init_db():
-    async with engine.begin() as session:
-        # await session.run_sync(Base.metadata.drop_all)
-        await session.run_sync(Base.metadata.create_all)
+    # async with engine.begin() as session:
+    #     # await session.run_sync(Base.metadata.drop_all)
+    #     await session.run_sync(Base.metadata.create_all)
+    pass
