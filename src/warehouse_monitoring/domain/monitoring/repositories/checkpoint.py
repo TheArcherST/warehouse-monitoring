@@ -34,4 +34,7 @@ class CheckpointRepo(BaseRepository):
             warehouse_id: int,
             local_id: int,
     ) -> models.Checkpoint:
-        pass
+        stmt = (select(models.Checkpoint)
+                .where(models.Checkpoint.local_id == local_id)
+                .where(models.Checkpoint.warehouse_id == warehouse_id))
+        return await self.session.scalar(stmt)

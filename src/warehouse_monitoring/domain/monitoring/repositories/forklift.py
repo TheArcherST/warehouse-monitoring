@@ -22,8 +22,10 @@ class ForkliftRepo(BaseRepository):
     async def get_forklift_by_id(
             self, id_: int,
     ) -> models.Forklift:
-        pass
+        stmt = (select(models.Forklift).where(models.Forklift.id == id_))
+        return await self.session.scalar(stmt)
 
+    # тут ты хотел internal на что-то поменять
     async def get_forklift_by_internal_id(
             self,
             warehouse_id: int,

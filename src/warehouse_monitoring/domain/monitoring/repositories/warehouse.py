@@ -19,12 +19,16 @@ class WarehouseRepo(BaseRepository):
 
     async def get_warehouse_by_id(
             self,
-            id_: int,
+            warehouse_id: int,
     ) -> models.Warehouse:
-        pass
+        stmt = (select(models.Warehouse).where(models.Warehouse.id == warehouse_id))
+        return await self.session.scalar(stmt)
 
+    # мы просто сравнили на равенство строк
     async def search_warehouse_by_city(
             self,
-            id_: int,
+            city_name: str,
     ) -> Iterable[models.Warehouse]:
-        pass
+        stmt = (select(models.Warehouse).where(models.Warehouse.city == city_name))
+        return await self.session.scalar(stmt)
+
