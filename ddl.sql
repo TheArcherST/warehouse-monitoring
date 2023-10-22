@@ -57,3 +57,14 @@ create table visit_record
         references forklift,
     created_at    timestamp not null
 );
+
+
+create table checkpoint_rel_path
+(
+    id            serial
+        primary key,
+    checkpoint_id integer not null
+        references checkpoint,
+    path_id       integer not null
+        references path
+);
