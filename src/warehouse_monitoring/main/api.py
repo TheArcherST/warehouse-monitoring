@@ -58,7 +58,7 @@ async def start_emulator():
     event_handlers.register(observer)
     emulator = Emulator(
         observer=observer,
-        warehouses_count=10,
+        warehouses_count=3,
     )
     conf = emulator.get_configuration()
     ioc = ServiceInteractorFactory()

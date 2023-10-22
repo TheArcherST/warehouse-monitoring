@@ -45,7 +45,7 @@ class ConfigurationMergeService(BaseService):
                 if forklift is None:
                     await self.forklift_repo.create_forklift(
                         warehouse_id=j.warehouse_id,
-                        local_id=i.id,
+                        local_id=j.id,
                     )
             for j in i.paths:
                 path = await self.path_repo.get_path_by_local_id(
