@@ -10,7 +10,7 @@ from warehouse_monitoring.infrastructure.warehouse.gateway import dtos
 
 if TYPE_CHECKING:
     from warehouse_monitoring.domain.models import (
-        Forklift, Checkpoint, TaskQueue
+        Forklift, Checkpoint, TaskQueue, Path,
     )
 
 
@@ -28,6 +28,9 @@ class Warehouse(Base):
     checkpoints: Mapped[list[Checkpoint]] = relationship(
         lazy='selectin',
     )
+    paths: Mapped[list[Path]] = relationship(
+        lazy='selectin',
+    )
     task_queue: Mapped[TaskQueue] = relationship(
         lazy='selectin'
     )
@@ -37,4 +40,5 @@ class Warehouse(Base):
             id=self.id,
             forklifts=[i.to_dto() for i in self.forklifts],
             checkpoints=[i.to_dto() for i in self.checkpoints],
+            paths=[i.to_dto() for i in self.paths],
         )

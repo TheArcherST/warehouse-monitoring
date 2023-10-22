@@ -3,6 +3,7 @@ from typing import Protocol
 from warehouse_monitoring.infrastructure.warehouse.gateway.observer import (
     WarehouseObserver,
 )
+from warehouse_monitoring.infrastructure.warehouse.gateway import dtos
 
 
 class WarehouseGatewayProto(Protocol):
@@ -19,6 +20,18 @@ class WarehouseGatewayProto(Protocol):
 
         This method allows you to inject some observer to the warehouse,
         and warehouse will trigger events, enumerated within observer.
+
+        """
+
+        raise NotImplementedError()
+
+    def get_configuration(self) -> dtos.Configuration:
+        """Get configuration method
+
+        This method fetches configuration from the warehouse.  You can
+        use this information to access base system element at any point
+        of time.  Gateway implementation must know about agents that
+        propagates underlying event.
 
         """
 

@@ -21,3 +21,7 @@ class Checkpoint(Base):
             location_x=self.location_x,
             location_y=self.location_y,
         )
+
+    @property
+    def unified_identifier(self):
+        return 'K{}'.format(self.local_id)

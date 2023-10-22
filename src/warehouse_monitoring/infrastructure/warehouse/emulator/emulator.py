@@ -5,7 +5,10 @@ from warehouse_monitoring.infrastructure.warehouse import gateway
 from warehouse_monitoring.infrastructure.warehouse.emulator.core import (
     Warehouse,
 )
-from warehouse_monitoring.infrastructure.warehouse.emulator.config import cities
+from warehouse_monitoring.infrastructure.warehouse.emulator.config import (
+    cities, get_object_location, parse_unified_identifier,
+    get_path_length,
+)
 
 
 class Emulator(gateway.protocol.WarehouseGatewayProto):
@@ -41,3 +44,9 @@ class Emulator(gateway.protocol.WarehouseGatewayProto):
 
     def set_observer(self, observer: gateway.observer.WarehouseObserver):
         self._observer = observer
+
+    def get_configuration(self) -> gateway.dtos.Configuration:
+        warehouses = [i.to_dto() for i in self._warehouses]
+        return gateway.dtos.Configuration(
+            warehouses=warehouses,
+        )

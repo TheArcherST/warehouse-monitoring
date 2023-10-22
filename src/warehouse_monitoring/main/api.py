@@ -18,6 +18,9 @@ from warehouse_monitoring.infrastructure.warehouse.emulator import Emulator
 from warehouse_monitoring.infrastructure.warehouse.gateway.observer import WarehouseObserver
 from warehouse_monitoring.domain import event_handlers
 
+from warehouse_monitoring.domain import services
+from warehouse_monitoring.presentation.interactor_factory.service import ServiceInteractorFactory
+
 app = FastAPI(title="Warehouse monitoring API")
 
 
@@ -46,17 +49,22 @@ app.include_router(root_router)
 
 @app.on_event("startup")
 async def on_application_startup():
-    start_emulator()
     await init_db()
+    await start_emulator()
 
 
-def start_emulator():
+async def start_emulator():
     observer = WarehouseObserver()
     event_handlers.register(observer)
     emulator = Emulator(
         observer=observer,
         warehouses_count=10,
     )
+    conf = emulator.get_configuration()
+    ioc = ServiceInteractorFactory()
+    async with ioc.configuration_merge_service() as service:
+        service: services.ConfigurationMergeService
+        await service.merge_configuration(conf)
     emulator.start()
 
 

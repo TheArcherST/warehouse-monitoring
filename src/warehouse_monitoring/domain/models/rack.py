@@ -11,10 +11,13 @@ if TYPE_CHECKING:
     from warehouse_monitoring.domain.models import Path
 
 
-class Task(Base):
-    __tablename__ = 'task'
+class Rack(Base):
+    __tablename__ = 'rack'
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    path_id: Mapped[int] = mapped_column(ForeignKey("path.id"))
+    local_id: Mapped[int] = mapped_column()
+    warehouse_id: Mapped[int] = mapped_column()
 
-    path: Mapped[Path] = relationship()
+    @property
+    def unified_identifier(self):
+        return 'X{}'.format(self.local_id)

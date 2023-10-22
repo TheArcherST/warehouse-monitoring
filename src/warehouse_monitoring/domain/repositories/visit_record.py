@@ -11,7 +11,13 @@ class VisitRecordRepo(BaseRepository):
             checkpoint: models.Checkpoint,
             forklift: models.Forklift,
     ) -> models.VisitRecord:
-        pass
+        obj = models.VisitRecord(
+            checkpoint=checkpoint,
+            forklift=forklift,
+        )
+        self.session.add(obj)
+        await self.session.flush()
+        return obj
 
     async def search_visit_records_by_forklift(
             self, forklift: models.Forklift,

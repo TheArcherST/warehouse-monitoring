@@ -1,25 +1,10 @@
 from __future__ import annotations
 
+from warehouse_monitoring.infrastructure.bases.dto import BaseDTO
 from warehouse_monitoring.infrastructure.warehouse.gateway import dtos
 
 
-# class WarehouseConfiguration(BaseDTO):
-#     id: int
-#
-#
-# class PathConfiguration(BaseDTO):
-#     pass
-#
-#
-# class CheckpointConfiguration(BaseDTO):
-#     pass
-#
-#
-# class TaskConfiguration(BaseDTO):
-#     pass
-
-
-class Configuration:
+class Configuration(BaseDTO):
     """Warehouses configuration object
 
     Contain warehouses configuration.  Please, note that it mustn't
@@ -30,6 +15,3 @@ class Configuration:
     """
 
     warehouses: list[dtos.WarehouseDTO]
-    paths: list[dtos.PathDTO]
-    task_configuration: list[dtos.TaskDTO]
-    checkpoints: list[dtos.CheckpointDTO]

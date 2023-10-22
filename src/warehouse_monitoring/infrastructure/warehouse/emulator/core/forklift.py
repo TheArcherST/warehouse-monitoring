@@ -166,3 +166,9 @@ class Forklift:
             else:
                 # if forklift have next_point_time but tima hasn't come - we need to wait more and check it next time
                 pass
+
+    def to_dto(self) -> gateway.dtos.ForkliftDTO:
+        return gateway.dtos.ForkliftDTO(
+            id=self.id,
+            warehouse_id=self.warehouse_id,
+        )

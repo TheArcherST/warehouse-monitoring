@@ -10,12 +10,14 @@ from warehouse_monitoring.domain import models
 class WarehouseRepo(BaseRepository):
     async def create_warehouse(
             self,
+            id_: int,
             city_name: str,
             forklifts: list[models.Forklift],
             checkpoints: list[models.Checkpoint],
             task_queue: models.TaskQueue,
     ) -> models.Warehouse:
         obj = models.Warehouse(
+            id=id_,
             city_name=city_name,
             forklifts=forklifts,
             checkpoints=checkpoints,

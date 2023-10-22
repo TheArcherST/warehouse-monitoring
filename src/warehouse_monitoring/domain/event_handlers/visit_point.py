@@ -13,7 +13,7 @@ async def visit_point_handler(
         await service.notify_checkpoint_visit(
             warehouse_id=event.warehouse_id,
             local_checkpoint_id=event.checkpoint_id,
-            forklift_id=event.forklift_id,
+            local_forklift_id=event.forklift_id,
         )
 
 

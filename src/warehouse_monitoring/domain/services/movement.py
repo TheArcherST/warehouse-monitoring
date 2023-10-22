@@ -16,14 +16,15 @@ class MovementService:
             self,
             warehouse_id: int,
             local_checkpoint_id: int,
-            forklift_id: int,
+            local_forklift_id: int,
     ) -> None:
         checkpoint = await self.checkpoint_repo.get_checkpoint_by_local_id(
             warehouse_id=warehouse_id,
             local_id=local_checkpoint_id,
         )
-        forklift = await self.forklift_repo.get_forklift_by_id(
-            id_=forklift_id,
+        forklift = await self.forklift_repo.get_forklift_by_local_id(
+            warehouse_id=warehouse_id,
+            local_id=local_forklift_id,
         )
         await self.visit_record_repo.create_visit_record(
             checkpoint=checkpoint,

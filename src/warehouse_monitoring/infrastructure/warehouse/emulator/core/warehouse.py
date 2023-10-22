@@ -3,7 +3,9 @@ import asyncio
 from .task import TaskQueue
 from random import randint
 from warehouse_monitoring.infrastructure.warehouse import gateway
+from warehouse_monitoring.infrastructure.warehouse.gateway import dtos
 from warehouse_monitoring.infrastructure.warehouse.emulator.core.forklift import Forklift
+from ..config import checkpoints, get_object_location, get_path_length, parse_unified_identifier
 
 
 class Warehouse:
@@ -84,3 +86,58 @@ class Warehouse:
 
             await asyncio.sleep(0.1)
             current += 1
+
+    @staticmethod
+    def get_checkpoints(warehouse_id: int):
+        result = []
+        for unified_identifier, location in checkpoints.items():
+            id_ = int(unified_identifier[1:])
+            result.append(
+                gateway.dtos.CheckpointDTO(
+                    id=id_, warehouse_id=warehouse_id, location_x=location.x,
+                    location_y=location.y,
+                )
+            )
+        return result
+
+    @staticmethod
+    def get_path_dtos(warehouse_id: int):
+        unified_paths = [
+            ["K1", "K2", "K3", "X1"],
+            ["K1", "K2", "K3", "K4", "X2"],
+            ["K1", "K2", "K5", "K6", 'X3'],
+            ["K1", "K2", "K5", 'K6', 'K7', 'X4'],
+            ["K1", "K2", "K5", "K8", "K9", "X5"],
+            ["K1", "K2", "K5", "K8", "K9", "K10", "X6"],
+        ]
+        result = []
+        for n, i in enumerate(unified_paths):
+            res = []
+            for j in i[:-1]:
+                location = get_object_location(j)
+                res.append(
+                    dtos.CheckpointDTO(
+                        id=parse_unified_identifier(j).identifier,
+                        warehouse_id=warehouse_id, location_x=location.x,
+                        location_y=location.y, )
+                )
+            location = get_object_location(i[-1])
+            rack = dtos.RackDTO(
+                id=parse_unified_identifier(i[-1]).identifier,
+                location_x=location.x, location_y=location.y, )
+            result.append(
+                dtos.PathDTO(
+                    id=n,
+                    warehouse_id=warehouse_id,
+                    checkpoints=res, rack=rack, length=get_path_length(i), )
+            )
+        return result
+
+    def to_dto(self) -> gateway.dtos.WarehouseDTO:
+        return gateway.dtos.WarehouseDTO(
+            id=self.id,
+            checkpoints=self.get_checkpoints(self.id),
+            forklifts=[i.to_dto() for i in self.forklift_park],
+            paths=self.get_path_dtos(self.id),
+            city_name=self.city,
+        )

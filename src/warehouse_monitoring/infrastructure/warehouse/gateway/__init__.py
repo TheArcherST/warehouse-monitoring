@@ -11,6 +11,7 @@ from . import (
     events,
     observer,
     protocol,
+    dtos,
 )
 
 from .observer import WarehouseObserver

@@ -1,8 +1,7 @@
-from typing import Optional
-
 from warehouse_monitoring.infrastructure.bases.dto import BaseDTO
 
 
-class ForkliftDTO(BaseDTO):
+class RackDTO(BaseDTO):
     id: int
-    warehouse_id: int
+    location_x: int
+    location_y: int
